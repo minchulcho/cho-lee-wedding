@@ -1,23 +1,31 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
 
+// Helper to resolve paths relative to base URL (for deployment)
+const resolvePath = (path) => {
+  return new URL(path, import.meta.url).href;
+}
+
+// Or more simply, since these are in public folder, just prepend BASE_URL
+const basePath = import.meta.env.BASE_URL;
+
 const images = [
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-45-34.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-46-02.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-48-31.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-49-03.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-49-10.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-49-16.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-49-49 001.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-50-23 003.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-51-01 005.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-51-15 007.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-51-54 009.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-52-13 011.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-52-26 012.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-52-53 013.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-56-26 001.jpeg',
-  '/imgs/KakaoTalk_Photo_2026-02-07-18-56-29 002.jpeg'
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-45-34.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-46-02.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-48-31.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-49-03.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-49-10.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-49-16.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-49-49 001.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-50-23 003.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-51-01 005.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-51-15 007.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-51-54 009.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-52-13 011.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-52-26 012.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-52-53 013.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-56-26 001.jpeg`,
+  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-56-29 002.jpeg`
 ];
 
 const currentSlide = ref(0);
@@ -57,7 +65,7 @@ onUnmounted(() => {
 
     <main class="content">
       <section class="video-section">
-        <video controls autoplay muted loops playsinline src="/weddingVideo.mp4"></video>
+        <video controls autoplay muted loops playsinline :src="`${basePath}weddingVideo.mp4`"></video>
       </section>
 
       <section class="gallery">
