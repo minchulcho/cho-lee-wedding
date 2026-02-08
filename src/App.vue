@@ -231,8 +231,13 @@ const copyToClipboard = (text) => {
 
 
 .gallery {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 2rem; /* Add padding to frame the photos */
+  border-radius: 20px; /* Rounded corners */
+  border: 2px solid var(--pastel-pink); /* Pretty border */
   margin-bottom: 3rem;
-  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(255, 183, 197, 0.2);
+  backdrop-filter: blur(5px);
 }
 
 .slider-container {
@@ -241,6 +246,7 @@ const copyToClipboard = (text) => {
   overflow: hidden; /* Hide overflow images */
   aspect-ratio: 3/4; /* Adjust aspect ratio as needed */
   background-color: #f0f0f0;
+  border-radius: 12px; /* Soften internal image corners */
 }
 
 .slide-wrapper {
@@ -302,30 +308,36 @@ const copyToClipboard = (text) => {
 }
 
 .video-section {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 2rem;
+  border-radius: 20px; /* Rounded corners */
+  border: 2px solid var(--pastel-pink); /* Pretty border */
   margin-bottom: 3rem;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(255, 183, 197, 0.2);
+  backdrop-filter: blur(5px);
 }
 
 .video-section video {
   width: 100%;
   display: block;
+  border-radius: 12px; /* Soften video corners */
 }
 
 
 .details {
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.8);
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 20px; /* Rounded corners */
+  border: 2px solid var(--pastel-pink); /* Pretty border */
   text-align: center;
   margin-bottom: 3rem;
+  box-shadow: 0 4px 15px rgba(255, 183, 197, 0.2);
 }
 
 .account-section {
   text-align: center;
   margin-bottom: 3rem;
-  padding: 0 1rem;
+  /* Removed padding to match alignment */
 }
 
 .account-section h3 {
@@ -349,11 +361,11 @@ const copyToClipboard = (text) => {
 }
 
 .account-box {
-  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
-  border: 1px solid var(--pastel-pink);
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 15px rgba(255, 183, 197, 0.15); /* Soft pink shadow */
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 2px solid var(--pastel-pink); /* Pretty border */
+  border-radius: 20px; /* Rounded corners */
+  padding: 2rem; /* Consistent padding with details */
+  box-shadow: 0 4px 15px rgba(255, 183, 197, 0.2);
   backdrop-filter: blur(5px);
 }
 
