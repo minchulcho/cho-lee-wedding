@@ -1,17 +1,35 @@
 /* Base Reset */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   font-family: 'Noto Serif KR', serif;
-  background-color: #f9f9f9;
-  color: #333;
+  background-color: #FFF5F7;
+  /* Soft Mist Rose background */
+  color: #5D4037;
+  /* Softer brown-grey text */
   line-height: 1.6;
+}
+
+:root {
+  --pastel-pink: #FFB7C5;
+  /* Cherry Blossom Pink */
+  --pastel-pink-dark: #F06292;
+  /* Darker Pink for text/accents */
+  --pastel-green: #A5D6A7;
+  /* Sage Green */
+  --pastel-cream: #FFFAF0;
+  /* Floral White */
+  --text-color: #5D4037;
+  --text-light: #8D6E63;
 }
 
 #app {

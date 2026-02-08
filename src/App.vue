@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import BlossomEffect from './components/BlossomEffect.vue'; // Import effect
 
 // Helper to resolve paths relative to base URL (for deployment)
 const resolvePath = (path) => {
@@ -54,18 +55,29 @@ onMounted(() => {
 onUnmounted(() => {
   stopSlideShow();
 });
+
+const copyToClipboard = (text) => {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('복사되었습니다: ' + text);
+  }).catch(err => {
+    console.error('복사 실패:', err);
+    alert('복사하기가 지원되지 않는 환경입니다.');
+  });
+};
 </script>
 
 <template>
   <div class="mobile-container">
+    <BlossomEffect />
     <header class="header">
       <h1 class="title">Wedding Invitation</h1>
-      <p class="subtitle">We invite you to our special day</p>
+      <p class="subtitle">We invite <br>
+        you to our special day</p>
     </header>
 
     <main class="content">
       <section class="video-section">
-        <video controls autoplay muted loops playsinline :src="`${basePath}weddingVideo.mp4`"></video>
+        <video controls autoplay muted loops playsinline src="/weddingVideo.mp4"></video>
       </section>
 
       <section class="gallery">
@@ -112,7 +124,13 @@ onUnmounted(() => {
         </div>
         <div class="info-item">
           <span class="label">Location</span>
-          <span class="value">대전광역시 유성구 테크노중앙로 161<br>스카이파크호텔 1층 루이비스컨벤션</span>
+          <span class="value">대전광역시 유성구 <br>테크노중앙로 161<br>스카이파크호텔 1층<br> 루이비스컨벤션</span>
+          <button class="copy-btn" @click="copyToClipboard('대전광역시 유성구 테크노중앙로 161')" aria-label="주소 복사">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+              <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+            </svg>
+          </button>
         </div>
       </section>
 
@@ -130,7 +148,15 @@ onUnmounted(() => {
             <span class="side-label">신랑측</span>
             <div class="account-info">
               <span class="name">조준희</span>
-              <span class="bank">국민은행 451-21-0312-080</span>
+              <div class="bank-row">
+                <span class="bank">국민은행 <br>451-21-0312-080</span>
+                <button class="copy-btn-sm" @click="copyToClipboard('451-21-0312-080')" aria-label="계좌번호 복사">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
           
@@ -140,7 +166,15 @@ onUnmounted(() => {
             <span class="side-label">신부측</span>
             <div class="account-info">
               <span class="name">신인숙</span>
-              <span class="bank">우리은행 388-021774-12-001</span>
+              <div class="bank-row">
+                <span class="bank">우리은행 <br>388-021774-12-001</span>
+                <button class="copy-btn-sm" @click="copyToClipboard('388-021774-12-001')" aria-label="계좌번호 복사">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -174,13 +208,13 @@ onUnmounted(() => {
 .title {
   font-family: 'Great Vibes', cursive;
   font-size: 3.5rem;
-  color: #d4a373; /* Gold/Beige tone */
+  color: var(--pastel-pink-dark); /* Dark pastel pink */
   margin-bottom: 0.5rem;
 }
 
 .subtitle {
   font-size: 1rem;
-  color: #888;
+  color: var(--text-light); /* Softer text color */
   letter-spacing: 2px;
   text-transform: uppercase;
 }
@@ -188,6 +222,7 @@ onUnmounted(() => {
 .content {
   flex: 1;
   padding: 2rem 1.5rem;
+  background-color: var(--pastel-cream); /* Spring pastel background */
 }
 
 .greeting {
@@ -198,13 +233,13 @@ onUnmounted(() => {
 .greeting h2 {
   font-size: 1.4rem;
   margin-bottom: 1.5rem;
-  color: #333;
+  color: var(--text-color);
 }
 
 .message {
   font-size: 1.1rem;
   line-height: 2;
-  color: #555;
+  color: var(--text-color);
 }
 
 
@@ -294,7 +329,7 @@ onUnmounted(() => {
 
 
 .details {
-  background-color: #fafafa;
+  background-color: #fff;
   padding: 2rem;
   border-radius: 8px;
   text-align: center;
@@ -310,13 +345,14 @@ onUnmounted(() => {
 .account-section h3 {
   font-family: 'Noto Serif KR', serif;
   font-size: 1.3rem;
-  color: #d4a373;
+  color: var(--pastel-pink-dark);
   margin-bottom: 1rem;
   position: relative;
   display: inline-block;
   padding: 0.5rem 1.5rem;
-  background-color: #f9f9f9;
+  background-color: var(--pastel-cream);
   border-radius: 20px;
+  border: 1px solid var(--pastel-pink);
 }
 
 .account-message {
@@ -327,11 +363,12 @@ onUnmounted(() => {
 }
 
 .account-box {
-  background-color: #fff;
-  border: 1px solid #eee;
+  background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white */
+  border: 1px solid var(--pastel-pink);
   border-radius: 12px;
   padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 15px rgba(255, 183, 197, 0.15); /* Soft pink shadow */
+  backdrop-filter: blur(5px);
 }
 
 .account-group {
@@ -364,6 +401,12 @@ onUnmounted(() => {
   margin-bottom: 0.2rem;
 }
 
+.bank-row {
+  display: flex;
+  align-items: flex-end; /* Align icon with bottom line of text */
+  gap: 0.5rem;
+}
+
 .account-info .bank {
   font-size: 0.9rem;
   color: #666;
@@ -388,7 +431,7 @@ onUnmounted(() => {
 .label {
   display: block;
   font-size: 0.9rem;
-  color: #d4a373;
+  color: var(--pastel-pink-dark);
   margin-bottom: 0.5rem;
   font-weight: bold;
   text-transform: uppercase;
@@ -404,8 +447,8 @@ onUnmounted(() => {
   padding: 2rem;
   text-align: center;
   font-size: 0.9rem;
-  color: #aaa;
-  background-color: #fcfcfc;
+  color: var(--text-light);
+  background-color: var(--pastel-cream);
 }
 
 /* Responsive adjustments */
@@ -413,5 +456,47 @@ onUnmounted(() => {
   .mobile-container {
     box-shadow: none;
   }
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+  padding: 0.4rem;
+  color: var(--pastel-pink-dark);
+  background-color: transparent;
+  border: 1px solid var(--pastel-pink-dark);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.copy-btn:hover {
+  background-color: var(--pastel-pink);
+  color: #fff;
+  border-color: var(--pastel-pink);
+}
+
+.copy-btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  padding: 0.2rem 0.4rem;
+  color: var(--text-light);
+  background-color: var(--pastel-cream);
+  border: 1px solid #FFE4E1; /* Mists Rose border */
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: flex-end; /* Align button to bottom of row */
+  margin-bottom: 3px; /* visual adjustment to align with text baseline */
+  transition: all 0.2s;
+}
+
+.copy-btn-sm:hover {
+  background-color: var(--pastel-pink);
+  color: #fff;
+  border-color: var(--pastel-pink);
 }
 </style>
