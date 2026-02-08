@@ -10,24 +10,10 @@ const resolvePath = (path) => {
 // Or more simply, since these are in public folder, just prepend BASE_URL
 const basePath = import.meta.env.BASE_URL;
 
-const images = [
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-45-34.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-46-02.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-48-31.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-49-03.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-49-10.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-49-16.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-49-49 001.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-50-23 003.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-51-01 005.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-51-15 007.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-51-54 009.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-52-13 011.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-52-26 012.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-52-53 013.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-56-26 001.jpeg`,
-  `${basePath}imgs/KakaoTalk_Photo_2026-02-07-18-56-29 002.jpeg`
-];
+// Generate image paths (photo_01.jpg to photo_16.jpg)
+const images = Array.from({ length: 16 }, (_, i) => 
+  `${basePath}imgs/photo_${String(i + 1).padStart(2, '0')}.jpg`
+);
 
 const currentSlide = ref(0);
 let slideInterval;
