@@ -42,12 +42,64 @@ onUnmounted(() => {
   stopSlideShow();
 });
 
+// Language State
+const currentLang = ref('ko'); // 'ko' or 'en'
+
+const translations = {
+  ko: {
+    subtitle: "소중한 날에 초대합니다",
+    greetingTitle: "소중한 분들을 초대합니다",
+    greetingMessage: "두 사람이 하나가 되는 뜻깊은 날,<br>귀한 걸음 하시어 축복해 주시면<br>더없는 기쁨으로 간직하겠습니다.",
+    dateLabel: "Date",
+    dateValue: "2026. 03. 28. 토요일 오후 5:40",
+    locationLabel: "Location",
+    locationValue: "대전광역시 유성구 <br>테크노중앙로 161<br>스카이파크호텔 1층<br> 루이비스컨벤션",
+    locationCopy: "대전광역시 유성구 테크노중앙로 161",
+    accountTitle: "마음 전하실 곳",
+    accountMessage: "참석하지 못하시는 분들을 위해<br>계좌번호를 안내해 드립니다.<br>너른 양해 부탁드립니다.",
+    groomSide: "신랑측",
+    brideSide: "신부측",
+    groomName: "조준희",
+    brideName: "신인숙",
+    groomBank: "국민은행",
+    brideBank: "우리은행",
+    copyAddress: "주소 복사",
+    copyAccount: "계좌번호 복사",
+    thankYou: "감사합니다"
+  },
+  en: {
+    subtitle: "We invite you to our special day",
+    greetingTitle: "We Invite You",
+    greetingMessage: "We invite you to celebrate<br>the beginning of our new journey together.<br>Your presence will add to our joy.",
+    dateLabel: "Date",
+    dateValue: "Saturday, March 28, 2026 at 5:40 PM",
+    locationLabel: "Location",
+    locationValue: "1F Louivise Convention,<br>Skypark Hotel, 161 Techno jungang-ro,<br>Yuseong-gu, Daejeon",
+    locationCopy: "161 Techno jungang-ro, Yuseong-gu, Daejeon",
+    accountTitle: "Gift Information",
+    accountMessage: "For those who wish to send a gift,<br>account details are provided below.",
+    groomSide: "Groom",
+    brideSide: "Bride",
+    groomName: "Cho Jun-hee",
+    brideName: "Shin In-sook",
+    groomBank: "KB Bank",
+    brideBank: "Woori Bank",
+    copyAddress: "Copy Address",
+    copyAccount: "Copy Account",
+    thankYou: "Thank you"
+  }
+};
+
+const toggleLanguage = () => {
+  currentLang.value = currentLang.value === 'ko' ? 'en' : 'ko';
+};
+
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text).then(() => {
-    alert('복사되었습니다: ' + text);
+    alert(currentLang.value === 'ko' ? '복사되었습니다: ' + text : 'Copied: ' + text);
   }).catch(err => {
-    console.error('복사 실패:', err);
-    alert('복사하기가 지원되지 않는 환경입니다.');
+    console.error('Copy failed:', err);
+    alert(currentLang.value === 'ko' ? '복사하기가 지원되지 않는 환경입니다.' : 'Copying is not supported in this environment.');
   });
 };
 </script>
@@ -55,10 +107,14 @@ const copyToClipboard = (text) => {
 <template>
   <div class="mobile-container">
     <BlossomEffect />
+    <div class="lang-switch-container">
+      <button class="lang-btn" @click="toggleLanguage">
+        {{ currentLang === 'ko' ? 'English' : '한국어' }}
+      </button>
+    </div>
     <header class="header">
       <h1 class="title">Wedding Invitation</h1>
-      <p class="subtitle">We invite <br>
-        you to our special day</p>
+      <p class="subtitle">{{ translations[currentLang].subtitle }}</p>
     </header>
 
     <main class="content">
@@ -94,24 +150,20 @@ const copyToClipboard = (text) => {
       </section>
 
       <section class="greeting">
-        <h2>소중한 분들을 초대합니다</h2>
-        <p class="message">
-          두 사람이 하나가 되는 뜻깊은 날,<br>
-          귀한 걸음 하시어 축복해 주시면<br>
-          더없는 기쁨으로 간직하겠습니다.
-        </p>
+        <h2>{{ translations[currentLang].greetingTitle }}</h2>
+        <p class="message" v-html="translations[currentLang].greetingMessage"></p>
       </section>
 
 
       <section class="details">
         <div class="info-item">
-          <span class="label">Date</span>
-          <span class="value">2026. 03. 28. SAT &nbsp; 05:40 PM</span>
+          <span class="label">{{ translations[currentLang].dateLabel }}</span>
+          <span class="value">{{ translations[currentLang].dateValue }}</span>
         </div>
         <div class="info-item">
-          <span class="label">Location</span>
-          <span class="value">대전광역시 유성구 <br>테크노중앙로 161<br>스카이파크호텔 1층<br> 루이비스컨벤션</span>
-          <button class="copy-btn" @click="copyToClipboard('대전광역시 유성구 테크노중앙로 161')" aria-label="주소 복사">
+          <span class="label">{{ translations[currentLang].locationLabel }}</span>
+          <span class="value" v-html="translations[currentLang].locationValue"></span>
+          <button class="copy-btn" @click="copyToClipboard(translations[currentLang].locationCopy)" :aria-label="translations[currentLang].copyAddress">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
               <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
               <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
@@ -122,21 +174,17 @@ const copyToClipboard = (text) => {
 
 
       <section class="account-section">
-        <h3>마음 전하실 곳</h3>
-        <p class="account-message">
-          참석하지 못하시는 분들을 위해<br>
-          계좌번호를 안내해 드립니다.<br>
-          너른 양해 부탁드립니다.
-        </p>
+        <h3>{{ translations[currentLang].accountTitle }}</h3>
+        <p class="account-message" v-html="translations[currentLang].accountMessage"></p>
         
         <div class="account-box">
           <div class="account-group">
-            <span class="side-label">신랑측</span>
+            <span class="side-label">{{ translations[currentLang].groomSide }}</span>
             <div class="account-info">
-              <span class="name">조준희</span>
+              <span class="name">{{ translations[currentLang].groomName }}</span>
               <div class="bank-row">
-                <span class="bank">국민은행 <br>451-21-0312-080</span>
-                <button class="copy-btn-sm" @click="copyToClipboard('451-21-0312-080')" aria-label="계좌번호 복사">
+                <span class="bank">{{ translations[currentLang].groomBank }} <br>451-21-0312-080</span>
+                <button class="copy-btn-sm" @click="copyToClipboard('451-21-0312-080')" :aria-label="translations[currentLang].copyAccount">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
                     <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
@@ -149,12 +197,12 @@ const copyToClipboard = (text) => {
           <div class="divider"></div>
 
           <div class="account-group">
-            <span class="side-label">신부측</span>
+            <span class="side-label">{{ translations[currentLang].brideSide }}</span>
             <div class="account-info">
-              <span class="name">신인숙</span>
+              <span class="name">{{ translations[currentLang].brideName }}</span>
               <div class="bank-row">
-                <span class="bank">우리은행 <br>388-021774-12-001</span>
-                <button class="copy-btn-sm" @click="copyToClipboard('388-021774-12-001')" aria-label="계좌번호 복사">
+                <span class="bank">{{ translations[currentLang].brideBank }} <br>388-021774-12-001</span>
+                <button class="copy-btn-sm" @click="copyToClipboard('388-021774-12-001')" :aria-label="translations[currentLang].copyAccount">
                   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
                     <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
                     <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
@@ -169,7 +217,7 @@ const copyToClipboard = (text) => {
     </main>
 
     <footer class="footer">
-      <p>Thank you</p>
+      <p>{{ translations[currentLang].thankYou }}</p>
     </footer>
   </div>
 </template>
@@ -189,6 +237,32 @@ const copyToClipboard = (text) => {
   padding: 3rem 1.5rem;
   text-align: center;
   background-color: #fcfcfc;
+  position: relative; /* For lang btn positioning */
+}
+
+.lang-switch-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem 1.5rem 0;
+  background-color: #fcfcfc;
+}
+
+.lang-btn {
+  background-color: transparent;
+  border: 1px solid var(--pastel-pink-dark);
+  color: var(--pastel-pink-dark);
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-family: 'Noto Serif KR', serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+  background-color: var(--pastel-pink);
+  color: white;
+  border-color: var(--pastel-pink);
 }
 
 .title {
